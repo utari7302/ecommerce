@@ -1,10 +1,8 @@
-import 'package:ecommerce/constants.dart';
 import 'package:ecommerce/screens/sign_in/components/no_account_text.dart';
 import 'package:ecommerce/screens/sign_in/components/sign_form.dart';
 import 'package:ecommerce/screens/sign_in/components/social_card.dart';
 import 'package:ecommerce/size_config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class Body extends StatefulWidget {
   const Body({super.key});
@@ -37,9 +35,9 @@ class _BodyState extends State<Body> {
                 "Sign in with your email and password \nor continue with social media",
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: SizeConfig.screenHeight! * 0.08,),
+              SizedBox(height: SizeConfig.screenHeight! * 0.06,),
               const SignFrom(),
-              SizedBox(height: SizeConfig.screenHeight! * 0.08,),
+              SizedBox(height: SizeConfig.screenHeight! * 0.06,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -57,8 +55,9 @@ class _BodyState extends State<Body> {
                   ),
                 ],
               ),
+              SizedBox(height: getProportionateScreenHeight(15)),
+              const NoAccountText(),
               SizedBox(height: getProportionateScreenHeight(20)),
-              const NoAccountText()
             ],
           ),
         ),

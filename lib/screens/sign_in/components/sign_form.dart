@@ -21,6 +21,22 @@ class _SignFromState extends State<SignFrom> {
   final List<String> errors = [];
   bool remember = false;
 
+  void addError({required String error}) {
+    if (!errors.contains(error)) {
+      setState(() {
+        errors.add(error);
+      });
+    }
+  }
+
+  void removeError({required String error}) {
+    if (errors.contains(error)) {
+      setState(() {
+        errors.remove(error);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -79,28 +95,23 @@ class _SignFromState extends State<SignFrom> {
       onSaved: (newValue) => password = newValue!,
       obscureText: true,
       onChanged: (value) {
-        if (value!.isEmpty && errors.contains(kPassNullError)) {
-          setState(() {
-            errors.remove(kPassNullError);
-          });
-        } else if (value.length >= 8 && errors.contains(kShortPassError)) {
-          setState(() {
-            errors.remove(kShortPassError);
-          });
+        if (value.isNotEmpty) {
+          removeError(error: kPassNullError);
         }
+        if (value.length >= 8) {
+          removeError(error: kShortPassError);
+        }
+        password = value;
       },
       validator: (value) {
-        if (value!.isEmpty && !errors.contains(kPassNullError)) {
-          setState(() {
-            errors.add(kPassNullError);
-          });
-          return;
-        } else if (value.length < 8 && !errors.contains(kShortPassError)) {
-          setState(() {
-            errors.add(kShortPassError);
-          });
-          return;
+        if (value!.isEmpty) {
+          addError(error: kPassNullError);
+          return "";
+        }else if (value.length < 8) {
+          addError(error: kShortPassError);
+          return "";
         }
+        return null;
       },
       keyboardType: TextInputType.visiblePassword,
       decoration: const InputDecoration(
@@ -117,30 +128,22 @@ class _SignFromState extends State<SignFrom> {
     return TextFormField(
       onSaved: (newValue) => email = newValue!,
       onChanged: (value) {
-        if (value.isNotEmpty && errors.contains(kEmailNullError)) {
-          setState(() {
-            errors.remove(kEmailNullError);
-          });
-        } else if (emailValidatorRegExp.hasMatch(value) &&
-            errors.contains(kInvalidEmailError)) {
-          setState(() {
-            errors.remove(kInvalidEmailError);
-          });
+        if (value.isNotEmpty) {
+          removeError(error: kEmailNullError);
+        }
+        if (emailValidatorRegExp.hasMatch(value)) {
+          removeError(error: kInvalidEmailError);
         }
       },
       validator: (value) {
-        if (value!.isEmpty && !errors.contains(kEmailNullError)) {
-          setState(() {
-            errors.add(kEmailNullError);
-          });
-          return;
-        } else if (!emailValidatorRegExp.hasMatch(value) &&
-            !errors.contains(kInvalidEmailError)) {
-          setState(() {
-            errors.add(kInvalidEmailError);
-          });
-          return;
+        if (value!.isEmpty) {
+          addError(error: kEmailNullError);
+          return "";
+        } else if (!emailValidatorRegExp.hasMatch(value)) {
+          addError(error: kInvalidEmailError);
+          return "";
         }
+        return null;
       },
       keyboardType: TextInputType.emailAddress,
       decoration: const InputDecoration(
