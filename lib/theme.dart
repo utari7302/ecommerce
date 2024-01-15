@@ -1,6 +1,7 @@
 
 
 import 'package:ecommerce/constants.dart';
+import 'package:ecommerce/size_config.dart';
 import 'package:flutter/material.dart';
 
 ThemeData theme(){
