@@ -1,5 +1,5 @@
 import 'package:ecommerce/components/default_button.dart';
-import 'package:ecommerce/screens/sign_in/sign_in_screen.dart';
+import 'package:ecommerce/screens/home/home_screen.dart';
 import 'package:ecommerce/size_config.dart';
 import 'package:flutter/material.dart';
 
@@ -15,34 +15,47 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: SizeConfig.screenHeight! * 0.04,
-        ),
-        Image.asset(
-          "assets/images/success.png",
-          height: SizeConfig.screenHeight! * 0.4,
-        ),
-        SizedBox(
-          height: SizeConfig.screenHeight! * 0.08,
-        ),
-        Text(
-          "Login Success",
-          style: TextStyle(
-              fontSize: getProportionateScreenWidth(40),
-              fontWeight: FontWeight.bold,
-              color: Colors.black),
-        ),
-        const Spacer(),
-        SizedBox(
-          width: SizeConfig.screenWidth! * 0.6,
-          child: DefaultButton(
-            text: "Back to home",
-            press: () {
-              Navigator.pushNamed(context, SignInScreen.routeName);
-            },
+        Expanded(
+            flex: 3,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: SizeConfig.screenHeight! * 0.04,
+                ),
+                Image.asset(
+                  "assets/images/success.png",
+                  height: SizeConfig.screenHeight! * 0.4,
+                ),
+                SizedBox(
+                  height: SizeConfig.screenHeight! * 0.08,
+                ),
+                Text(
+                  "Login Success",
+                  style: TextStyle(
+                      fontSize: getProportionateScreenWidth(40),
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
+              ],
+            )),
+        Expanded(
+          child: Column(
+            children: [
+              SizedBox(
+                width: SizeConfig.screenWidth! * 0.6,
+                child: DefaultButton(
+                  text: "Back to home",
+                  press: () {
+                    Navigator.pushNamed(context, HomeScreen.routeName);
+                  },
+                ),
+              ),
+              const Spacer()
+            ],
           ),
         ),
-        const Spacer(),
+
+        //const Spacer(),
       ],
     );
   }
